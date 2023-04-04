@@ -6,6 +6,7 @@ import os
 import sqlalchemy
 
 app = Flask(__name__)
+
 app.config['SECRET_KEY'] = 'a1f5105eaf0db9b3fb69853150250679'
 
 if os.getenv("DATABASE_URL"):
@@ -21,12 +22,14 @@ login_manager.login_message_category = 'alert-info'
 
 from comunidadeimpressionadora import models
 engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-if not engine.has_table("usuario"):
+inspection = sqlalchemy.inspect(engine)
+if not inspection.has_table("usuario", schema="dbo"):
     with app.app_context():
         database.drop_all()
         database.create_all()
         print("A base de dados foi criada com sucesso")
 else:
     print("A base de dados já existe")
+
 
 from comunidadeimpressionadora import routes
