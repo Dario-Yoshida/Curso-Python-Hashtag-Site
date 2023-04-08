@@ -25,13 +25,11 @@ from comunidadeimpressionadora import models
 
 
 engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-ins = inspect(engine)
-existe = ins.dialect.has_table(engine.connect(), "usuario")
-if not existe:
+if not engine.has_table("usuario"):
     with app.app_context():
         database.drop_all()
         database.create_all()
-    print("Base de dados Criados com Sucesso!!")
+        print("Base de dados Criados com Sucesso!!")
 else:
     print("Base de dados ja existentes")
 
