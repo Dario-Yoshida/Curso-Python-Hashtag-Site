@@ -27,7 +27,7 @@ from comunidadeimpressionadora import models
 
 engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 inspection = sqlalchemy.inspect(engine)
-if not sqlalchemy.engine.reflection.Inspector.has_table(inspection, "usuario"):
+if not inspection.has_table("usuario", schema="dbo"):
     with app.app_context():
         database.drop_all()
         database.create_all()
