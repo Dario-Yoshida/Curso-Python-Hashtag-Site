@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'a1f5105eaf0db9b3fb69853150250679'
 
-if os.getenv("DATABASE_URL"):
+if os.getenv("postgresql://postgres:0fI9ifHp1KJkiCZ5Pyc0@containers-us-west-35.railway.app:7541/railway"):
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("postgresql://postgres:0fI9ifHp1KJkiCZ5Pyc0@containers-us-west-35.railway.app:7541/railway")
 database = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
